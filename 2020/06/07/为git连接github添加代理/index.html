@@ -19,11 +19,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"just-ep.github.io","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 <meta name="description" content="最近家里网络运营商封印了GitHub，正在寻找解决方法 已查明原因是自己瞎配的hosts,github对应的IP失效了😂 为了正常使用git指令，需要对GitHub仓库的两种连接方式，HTTP与SSH分别做处理 使用SSH的情况不同的操作系统操作略有不同，这里是Win10环境下做的修改 修改git的ssh配置，Win10系统中一般在用户目录下的.ssh文件夹中，类似C:\Users\USER\.">
 <meta property="og:type" content="article">
 <meta property="og:title" content="为git连接github添加代理">
-<meta property="og:url" content="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:url" content="https://just-ep.github.io/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/index.html">
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="最近家里网络运营商封印了GitHub，正在寻找解决方法 已查明原因是自己瞎配的hosts,github对应的IP失效了😂 为了正常使用git指令，需要对GitHub仓库的两种连接方式，HTTP与SSH分别做处理 使用SSH的情况不同的操作系统操作略有不同，这里是Win10环境下做的修改 修改git的ssh配置，Win10系统中一般在用户目录下的.ssh文件夹中，类似C:\Users\USER\.">
 <meta property="og:locale" content="zh_CN">
@@ -35,11 +35,11 @@
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
+<link rel="canonical" href="https://just-ep.github.io/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/","path":"2020/06/07/为git连接github添加代理/","title":"为git连接github添加代理"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://just-ep.github.io/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/","path":"2020/06/07/为git连接github添加代理/","title":"为git连接github添加代理"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>为git连接github添加代理 | Blog</title>
@@ -193,7 +193,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://just-ep.github.io/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -339,7 +339,7 @@
   
 
 
-  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"khMA1aXx9U3potbG5DjDJ2ci-MdYXbMMI","app_key":"pDp6K58jWYAoXyyqfPVovFH4","server_url":"https://justep7185.avosapps.us/","security":false}</script>
+  <script class="next-config" data-name="leancloud_visitors" type="application/json">{"enable":true,"app_id":"khMA1aXx9U3potbG5DjDJ2ci-MdYXbMMI","app_key":"pDp6K58jWYAoXyyqfPVovFH4","server_url":null,"security":false}</script>
   <script src="/js/third-party/statistics/lean-analytics.js"></script>
 
 
