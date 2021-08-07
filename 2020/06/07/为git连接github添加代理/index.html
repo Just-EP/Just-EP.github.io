@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.3/css/all.min.css" integrity="sha256-2H3fkXt6FEmrReK448mDVGKb3WW2ZZw35gI7vqHOE4Y=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","version":"8.7.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<meta name="description" content="最近家里网络运营商封印了GitHub，正在寻找解决方法 已查明原因是自己瞎配的hosts,github对应的IP失效了😂 为了正常使用git指令，需要对GitHub仓库的两种连接方式，HTTP与SSH分别做处理 使用SSH的情况不同的操作系统操作略有不同，这里是Win10环境下做的修改 修改git的ssh配置，Win10系统中一般在用户目录下的.ssh文件夹中，类似C:\Users\USER\.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为git连接github添加代理">
+<meta property="og:url" content="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/index.html">
+<meta property="og:site_name" content="Blog">
+<meta property="og:description" content="最近家里网络运营商封印了GitHub，正在寻找解决方法 已查明原因是自己瞎配的hosts,github对应的IP失效了😂 为了正常使用git指令，需要对GitHub仓库的两种连接方式，HTTP与SSH分别做处理 使用SSH的情况不同的操作系统操作略有不同，这里是Win10环境下做的修改 修改git的ssh配置，Win10系统中一般在用户目录下的.ssh文件夹中，类似C:\Users\USER\.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-07T15:47:18.000Z">
+<meta property="article:modified_time" content="2020-07-21T13:18:35.816Z">
+<meta property="article:author" content="JustEP">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="GFW">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/","path":"2020/06/07/为git连接github添加代理/","title":"为git连接github添加代理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>为git连接github添加代理 | Blog</title>
+  
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8SSH%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">1.</span> <span class="nav-text">使用SSH的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8HTTPS%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">2.</span> <span class="nav-text">使用HTTPS的情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#socks5%E4%B8%8Esocks5h%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">socks5与socks5h的区别</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-overview">
+            <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">JustEP</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Just-EP" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Just-EP" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:omake7185@gmail.com" title="E-Mail → mailto:omake7185@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/06/07/%E4%B8%BAgit%E8%BF%9E%E6%8E%A5github%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="JustEP">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          为git连接github添加代理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-07 23:47:18" itemprop="dateCreated datePublished" datetime="2020-06-07T23:47:18+08:00">2020-06-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2020-07-21 21:18:35" itemprop="dateModified" datetime="2020-07-21T21:18:35+08:00">2020-07-21</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><del>最近家里网络运营商封印了GitHub，正在寻找解决方法</del></p>
+<p>已查明原因是自己瞎配的hosts,github对应的IP失效了😂</p>
+<p>为了正常使用git指令，需要对GitHub仓库的两种连接方式，HTTP与SSH分别做处理</p>
+<h3 id="使用SSH的情况"><a href="#使用SSH的情况" class="headerlink" title="使用SSH的情况"></a>使用SSH的情况</h3><p>不同的操作系统操作略有不同，这里是Win10环境下做的修改</p>
+<p>修改git的ssh配置，Win10系统中一般在用户目录下的.ssh文件夹中，类似<code>C:\Users\USER\.ssh</code>，修改其中的config配置文件，如果没有则创建</p>
+<p>内容如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 走 socks5 代理</span><br><span class="line">ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p</span><br><span class="line"># 针对GitHub域名</span><br><span class="line">Host github.com</span><br><span class="line">   HostName github.com</span><br><span class="line">   User git</span><br><span class="line">   proxyport=8080</span><br><span class="line">   # 认证文件路径</span><br><span class="line">   IdentityFile &quot;C:\Users\USER\.ssh\id_rsa&quot;</span><br><span class="line">   TCPKeepAlive yes</span><br></pre></td></tr></table></figure>
+
+<p>注意后两行，否则会出现认证失效问题</p>
+<h3 id="使用HTTPS的情况"><a href="#使用HTTPS的情况" class="headerlink" title="使用HTTPS的情况"></a>使用HTTPS的情况</h3><p>比较简单，只需修改git配置即可</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global --add http.proxy socks5h://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
+
+<p>注意其中socks协议名为socks5h，开始本机使用的是socks5，导致出现SSL证书认证的问题，socks5h似乎附带了域名的解析，如果使用socks5，那么代理会直接使用ip进行访问，如果使用socks5h，会使用域名访问，前者在本机不能使用</p>
+<h3 id="socks5与socks5h的区别"><a href="#socks5与socks5h的区别" class="headerlink" title="socks5与socks5h的区别"></a>socks5与socks5h的区别</h3><p>区别在与域名解析由谁负责</p>
+<p>socks5协议，域名解析由本机负责</p>
+<p>socks5h协议，域名解析由代理服务器负责</p>
+<p>如果设置socks5协议的代理服务器不能生效，那么有可能本机使用的DNS存在问题，有可能是GFW的域名污染或者是其他某些原因，使用socks5h协议可能能够解决问题</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/git/" rel="tag"># git</a>
+              <a href="/tags/GFW/" rel="tag"># GFW</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/05/30/%E5%A6%82%E4%BD%95%E5%B0%86TAK%E9%9F%B3%E9%A2%91%E6%96%87%E4%BB%B6%E8%BD%AC%E6%8D%A2%E4%B8%BAflac%E5%B9%B6%E6%A0%B9%E6%8D%AECUE%E5%88%86%E8%BD%A8/" rel="prev" title="如何将TAK音频文件转换为flac并根据CUE分轨">
+                  <i class="fa fa-chevron-left"></i> 如何将TAK音频文件转换为flac并根据CUE分轨
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/07/26/RabbitMQ%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" rel="next" title="RabbitMQ环境搭建">
+                  RabbitMQ环境搭建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JustEP</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
